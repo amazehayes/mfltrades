@@ -506,7 +506,7 @@ bodyadmin <- dashboardBody(tags$head(tags$style(HTML('.sidebar {
                              fluidRow(
                                column(4),
                                strong("Patreon:"),
-                               tagList(a("Click Here to visit the Patreon site",href="patreon.com/amazehayes",target="_blank")),
+                               tagList(a("Click Here to visit the Patreon site",href="https://www.patreon.com/amazehayes",target="_blank")),
                                br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
                                br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
                                br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
