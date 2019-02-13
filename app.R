@@ -679,21 +679,41 @@ server <- function(input, output, session) {
      npta$NoTrades <- as.numeric(npta$NoTrades)
      
      rookiedraft <- draft_table(as.numeric(input$leagueid),input$.username,input$.password,players_import(as.numeric(input$leagueid)))
-     maxrounds <- max(rookiedraft$Round)
-     futurepicks <- as.data.frame(playerstraded[grepl("_",playerstraded$id),])
-     picks <- as.data.frame(playerstraded[grepl("[.]",playerstraded$id),])
-     colnames(futurepicks) <- "pick"
-     colnames(picks) <- "pick"
-     futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
-     picks$round <- as.numeric(substr(picks$pick,1,2))
-     psummary <- matrix(ncol = 2, nrow = maxrounds)
-     colnames(psummary) <- c("Piece","NoTrades")
-     rownames(psummary) <- 1:maxrounds
-     for(i in 1:maxrounds){
-       dfloop <- picks %>% filter(round == i)
-       dfloop2 <- futurepicks %>% filter(round == i)
-       v <- nrow(dfloop) + nrow(dfloop2)
-       psummary[i,] <- c(i,v)
+     if(nrow(rookiedraft) == 0){
+       futurepicks <- as.data.frame(playerstraded[grepl("_",playerstraded$id),])
+       picks <- as.data.frame(playerstraded[grepl("[.]",playerstraded$id),])
+       colnames(futurepicks) <- "pick"
+       colnames(picks) <- "pick"
+       futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
+       picks$round <- as.numeric(substr(picks$pick,1,2))
+       maxrounds <- max(futurepicks$round)
+       psummary <- matrix(ncol = 2, nrow = maxrounds)
+       colnames(psummary) <- c("Piece","NoTrades")
+       rownames(psummary) <- 1:maxrounds
+       for(i in 1:maxrounds){
+         dfloop <- picks %>% filter(round == i)
+         dfloop2 <- futurepicks %>% filter(round == i)
+         v <- nrow(dfloop) + nrow(dfloop2)
+         psummary[i,] <- c(i,v)
+       }
+     }
+     if(nrow(rookiedraft) > 0){
+       maxrounds <- max(rookiedraft$Round)
+       futurepicks <- as.data.frame(playerstraded[grepl("_",playerstraded$id),])
+       picks <- as.data.frame(playerstraded[grepl("[.]",playerstraded$id),])
+       colnames(futurepicks) <- "pick"
+       colnames(picks) <- "pick"
+       futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
+       picks$round <- as.numeric(substr(picks$pick,1,2))
+       psummary <- matrix(ncol = 2, nrow = maxrounds)
+       colnames(psummary) <- c("Piece","NoTrades")
+       rownames(psummary) <- 1:maxrounds
+       for(i in 1:maxrounds){
+         dfloop <- picks %>% filter(round == i)
+         dfloop2 <- futurepicks %>% filter(round == i)
+         v <- nrow(dfloop) + nrow(dfloop2)
+         psummary[i,] <- c(i,v)
+       }
      }
      npta <- rbind(npta,psummary)
      
@@ -746,27 +766,48 @@ server <- function(input, output, session) {
      nptf$NoTrades <- as.numeric(nptf$NoTrades)
      
      rookiedraft <- draft_table(as.numeric(input$leagueid),input$.username,input$.password,players_import(as.numeric(input$leagueid)))
-     maxrounds <- max(rookiedraft$Round)
-     futurepicks <- as.data.frame(playersacquired[grepl("_",playersacquired$id),])
-     picks <- as.data.frame(playersacquired[grepl("[.]",playersacquired$id),])
-     colnames(futurepicks) <- "pick"
-     colnames(picks) <- "pick"
-     futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
-     picks$round <- as.numeric(substr(picks$pick,1,2))
-     psummary <- matrix(ncol = 2, nrow = maxrounds)
-     colnames(psummary) <- c("Piece","NoTrades")
-     rownames(psummary) <- 1:maxrounds
-     for(i in 1:maxrounds){
-       dfloop <- picks %>% filter(round == i)
-       dfloop2 <- futurepicks %>% filter(round == i)
-       v <- nrow(dfloop) + nrow(dfloop2)
-       psummary[i,] <- c(i,v)
+     if(nrow(rookiedraft) == 0){
+       futurepicks <- as.data.frame(playersacquired[grepl("_",playersacquired$id),])
+       picks <- as.data.frame(playersacquired[grepl("[.]",playersacquired$id),])
+       colnames(futurepicks) <- "pick"
+       colnames(picks) <- "pick"
+       futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
+       picks$round <- as.numeric(substr(picks$pick,1,2))
+       maxrounds <- max(futurepicks$round)
+       psummary <- matrix(ncol = 2, nrow = maxrounds)
+       colnames(psummary) <- c("Piece","NoTrades")
+       rownames(psummary) <- 1:maxrounds
+       for(i in 1:maxrounds){
+         dfloop <- picks %>% filter(round == i)
+         dfloop2 <- futurepicks %>% filter(round == i)
+         v <- nrow(dfloop) + nrow(dfloop2)
+         psummary[i,] <- c(i,v)
+       }
      }
-     nptf <- rbind(nptf,psummary)
+     if(nrow(rookiedraft) > 0){
+       maxrounds <- max(rookiedraft$Round)
+       futurepicks <- as.data.frame(playersacquired[grepl("_",playersacquired$id),])
+       picks <- as.data.frame(playersacquired[grepl("[.]",playersacquired$id),])
+       colnames(futurepicks) <- "pick"
+       colnames(picks) <- "pick"
+       futurepicks$round <- as.numeric(substrRight(futurepicks$pick,1))
+       picks$round <- as.numeric(substr(picks$pick,1,2))
+       psummary <- matrix(ncol = 2, nrow = maxrounds)
+       colnames(psummary) <- c("Piece","NoTrades")
+       rownames(psummary) <- 1:maxrounds
+       for(i in 1:maxrounds){
+         dfloop <- picks %>% filter(round == i)
+         dfloop2 <- futurepicks %>% filter(round == i)
+         v <- nrow(dfloop) + nrow(dfloop2)
+         psummary[i,] <- c(i,v)
+       }
+     }
+     npta <- rbind(npta,psummary)
      
-     donut <- plot_ly(labels = ~Piece, values = ~NoTrades, data = nptf) %>%
+     
+     donut <- plot_ly(labels = ~Piece, values = ~NoTrades, data = npta) %>%
        add_pie(hole = 0.6) %>%
-       layout(title = "Players Acquired by Position",  showlegend = TRUE,
+       layout(title = "Players Traded by Position",  showlegend = TRUE,
               xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
               yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
      
